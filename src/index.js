@@ -50,15 +50,13 @@ function clearList() {
 }
 
 function fetchImages() {
-  newApiService
-    .fetchImg()
-    .then(loadMoreBtn.enable())
-    .then(createImgMarkup)
-    .then(populateList)
-    .then(
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: 'smooth',
-      }),
-    );
+  newApiService.fetchImg().then(imgs => {
+    loadMoreBtn.enable();
+    const createdListMarkup = createImgMarkup(imgs);
+    populateList(createdListMarkup);
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  });
 }
